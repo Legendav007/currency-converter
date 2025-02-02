@@ -7,10 +7,11 @@ function App() {
   const [from , setFrom] = useState("usd")
   const [to , setTo] = useState("inr")
   const [convertedAmount , setconvertedAmount] = useState(0)
-
   const currencyInfo = useCurrInfo(from)
+  if(!currencyInfo){
+    return<div className="div">Loading..</div>
+  }
   const options = Object.keys(currencyInfo)
-  console.log(options)
   const swap = ()=>{
     setFrom(to)
     setTo(from)
@@ -41,7 +42,7 @@ function App() {
                             label="From"
                             amount = {amount}
                             currencyOption={options}
-                            onCurrencyChange={(currency)=>setAmount(amount)}
+                            onCurrencyChange={(currency)=>setFrom(currency)}
                             selectCurrency={from}
                             onAmountChange={(amount)=>setAmount(amount)}
                         />
@@ -61,11 +62,11 @@ function App() {
                             amount = {convertedAmount}
                             currencyOption={options}
                             onCurrencyChange={(currency)=>setTo(currency)}
-                            selectCurrency={from}
+                            selectCurrency={to}
                         />
                     </div>
                     <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
-                        Convert {from.toUpperCase} to {to.toUpperCase}
+                            Convert {from.toUpperCase()} to {to.toUpperCase()}
                     </button>
                 </form>
             </div>
